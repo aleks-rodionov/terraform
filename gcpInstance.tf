@@ -3,11 +3,13 @@ resource "random_id" "instance_id" {
  byte_length = 8
 }
 
-// Adding SSH Public Key in Project Meta Data
+// Optional - add SSH Public Key in Project Meta Data
+// Can be added on the account level and
+// descinintaed to participating projects
 /*
 resource "google_compute_project_metadata_item" "ssh-keys" {
   key   = "ssh-keys"
-  value = "alexfidessa@gmail.com:${file("../Credentials/GCP/legacy_key.pub")}"
+  value = "user_name${file("../Credentials/GCP/legacy_key.pub")}"
 }
 */
 
@@ -24,7 +26,7 @@ resource "google_compute_instance" "default" {
  }
 
 // Make sure rhel is installed on all new instances for later steps
-// metadata_startup_script = "yum update"
+metadata_startup_script = "yum update"
 
  network_interface {
    network = "default"
@@ -51,13 +53,6 @@ resource "google_compute_instance" "default" {
    source      = "credentials"
    destination = "/tmp/credentials"
  }
-
-/*
- environment {
-   AWS_ACCESS_KEY_ID = var.aws_access_key_id
-   AWS_SECRET_ACCESS_KEY = var.aws_secret_access_key_id
- }
-*/
 
  provisioner "remote-exec" {
    inline = [
