@@ -1,11 +1,5 @@
-# Configure the AWS Provider
-
-provider "aws" {
-  region = "us-east-1"
-  access_key = "$file(../AWS Credentials/access_key.txt)"
-  secret_key = "$file(../AWS Credentials/secret_key.txt)"
-}
-
+/*
+# Configure the AWS resources
 resource "aws_instance" "my_awesome_ec2" {
   ami           = "ami-096fda3c22c1c990a"
   instance_type = "t2.micro"
@@ -41,7 +35,7 @@ resource "aws_instance" "my_awesome_ec2" {
   connection {
     type = "ssh"
     user = "ec2-user"
-    private_key = file("../terraformEC2access.pem")
+    private_key = file("../Credentials/Terraform/terraformEC2access.pem")
     host = self.public_ip
   }
 }
@@ -49,3 +43,4 @@ resource "aws_instance" "my_awesome_ec2" {
 output "instance_ip_addr" {
   value = aws_instance.my_awesome_ec2.public_ip
 }
+*/

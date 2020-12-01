@@ -1,4 +1,5 @@
-# Create a VPC
+/*
+# A template file - create a VPC. Not needed for S3 transfer
 resource "aws_security_group" "allow_ssh" {
   name        = "allow_ssh"
   description = "Allow SSH inbound traffic"
@@ -18,3 +19,4 @@ resource "aws_security_group" "allow_ssh" {
     cidr_blocks = ["0.0.0.0/0"]
   }
 }
+*/
