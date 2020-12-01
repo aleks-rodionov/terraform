@@ -5,7 +5,7 @@ resource "random_id" "instance_id" {
 
 // Optional - add SSH Public Key in Project Meta Data
 // Can be added on the account level and
-// descinintaed to participating projects
+// desciminted to participating projects
 /*
 resource "google_compute_project_metadata_item" "ssh-keys" {
   key   = "ssh-keys"
@@ -42,7 +42,7 @@ metadata_startup_script = "yum update"
    destination = "/tmp/script.sh"
  }
 
- # copy over python scripts
+ # copy over python scrip that performs S3 transfer
  provisioner "file" {
    source      = "upload_file.py"
    destination = "/tmp/upload_file.py"
@@ -54,6 +54,8 @@ metadata_startup_script = "yum update"
    destination = "/tmp/credentials"
  }
 
+ # upload and initiate the transfer script
+ # remove excta characters that might have been added by Windows editor
  provisioner "remote-exec" {
    inline = [
      "chmod +x /tmp/upload_file.py",
@@ -65,7 +67,7 @@ metadata_startup_script = "yum update"
 
  connection {
    type = "ssh"
-   user = "alexfidessa"
+   user = "${var.gcp_user_name}"
    private_key = file("../Credentials/GCP/legacy_key")
    host = google_compute_instance.default.network_interface.0.access_config.0.nat_ip
  }
