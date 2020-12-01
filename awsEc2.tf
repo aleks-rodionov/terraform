@@ -1,4 +1,5 @@
 /*
+# A template file - create am EC2. Not needed for S3 transfer.
 # Configure the AWS resources
 resource "aws_instance" "my_awesome_ec2" {
   ami           = "ami-096fda3c22c1c990a"
